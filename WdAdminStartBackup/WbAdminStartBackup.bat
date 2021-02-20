@@ -21,10 +21,10 @@ goto mail
 )
 
 :backup
+:: удаляем все файлы измененные день назад и ранее, чтобы хватило места на диске Е
+forfiles /p "%folder2%" /s /c "cmd /c rd /s /q @file" /d -1 >>e:\log.txt 2>&1
 :: копируем все папки и их содержимое в папку Яндекс диска
 xcopy "%folder1%" "%folder2%" /y /e >>e:\log.txt 2>&1
-:: удаляем все файлы измененные день назад и ранее
-forfiles /p "%folder2%" /s /c "cmd /c rd /s /q @file" /d -1 >>e:\log.txt 2>&1
 :: создаем два выражения для сравнения количества файлов
 set /A "COUNT=0", "COUNT1=0"
 :: считаем количество файлов в только что созданном бэкапе возраст которых не превышет 0 дней (18 файлов)
@@ -36,9 +36,9 @@ for /F %%N in ('
 	robocopy "%folder2%" "%folder2%" /L /E /IS /NP /NS /NC /NJH /NJS /MINAGE:0 /NDL /XD SPPMetadataCache Logs
 ') do set /A "COUNT1+=1"
 :: отправляем результаты в лог и файл count.txt для их сравнения и формирование письма
-echo %COUNT% %COUNT1% Backup successfully created >>e:\log.txt 2>&1 
-echo %COUNT% >>e:\count.txt 2>&1
-echo %COUNT1% >>e:\count1.txt 2>&1
+echo %COUNT% %COUNT1% Backup successfully created >>E:\log.txt 2>&1 
+echo %COUNT% >>E:\count.txt 2>&1
+echo %COUNT1% >>E:\count.txt 2>&1
 goto mail
 
 :mail

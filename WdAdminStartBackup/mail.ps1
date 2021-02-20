@@ -54,11 +54,15 @@ if ($path -eq $True) {
 		# отправляем письмо, особождаем память
 		$smtp.Send($mes)
 		$att.Dispose()
+		Exit # обозначить выход из программы, чтобы не удалился каталог бэкапа
 	}
 	# удаляем каталог "WindowsImageBackup" и его подкаталоги в директории "E:\"
 	Remove-Item -recurse E:\WindowsImageBackup
 	# удаляем txt файл из каталога Е
 	Remove-Item E:\*.txt
+	# очищаем корзину яндекс диска
+	curl.exe -s -H "Authorization: OAuth ваштокен" -X "DELETE" https://cloud-api.yandex.net/v1/disk/trash/resources/?path=
+	# узнать свой токен: https://oauth.yandex.ru/authorize?response_type=token&display=popup&client_id=вашid
 	Exit	
 }
 else {
