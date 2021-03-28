@@ -79,6 +79,9 @@ else {
 	# отправляем письмо, особождаем память
 	$smtp.Send($mes)
 	$att.Dispose()
+	# удаляем txt файл из каталога Е
+	Remove-Item E:\*.txt
+	Exit
 }
 
 

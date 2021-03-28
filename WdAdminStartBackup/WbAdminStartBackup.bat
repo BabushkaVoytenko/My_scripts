@@ -17,6 +17,8 @@ set folder2=E:\YandexDisk\WindowsImageBackup\computer_name
 if exist %folder1% (
 goto backup
 ) else (
+:: отправляем сообщение в лог файл что директория не найдена
+echo "directory E:\WindowsImageBackup\computer_name is not found" >>e:\log.txt 2>&1
 goto mail
 )
 
